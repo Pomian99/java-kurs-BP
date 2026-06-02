@@ -10,14 +10,12 @@ public class Main {
         double result = 0.0;
 
         while (calculate) {
-            System.out.println("Enter first number:");
-            double a = scan.nextDouble();
+            double a = getDoubleFromUser("Enter first number:", scan);
 
             System.out.println("Enter operator:");
             char oper = scan.next().charAt(0);
 
-            System.out.println("Enter second number:");
-            double b = scan.nextDouble();
+            double b = getDoubleFromUser("Enter second number:", scan);
 
             result = performCalculation(a, oper, b);
             if (Double.isNaN(result)) {
@@ -29,6 +27,16 @@ public class Main {
             }
         }
         System.out.println(result % 2 == 0 ? "Last result is even" : "Last result is odd");
+    }
+
+    private static double getDoubleFromUser(String prompt, Scanner scanner){
+        System.out.println(prompt);
+        while (!scanner.hasNextDouble())
+        {
+            System.out.println("Given input is not double, enter new one");
+            scanner.next();
+        }
+        return scanner.nextDouble();
     }
 
     private static double performCalculation(double num1, char operator, double num2) {
