@@ -9,30 +9,42 @@ public class Main {
         double result = 0.0;
 
         while (calculate) {
-            double a = getDoubleFromUser("Enter first number:", scanner);
+            System.out.println("Enter expression:");
 
-            System.out.println("Enter operator:");
-            char operator = scanner.next().charAt(0);
+            String line = scanner.nextLine();
+            String[] parts = line.split(" ");
 
-            double b = getDoubleFromUser("Enter second number:", scanner);
+            if (parts.length != 3) {
+                System.out.println("Wrong format. Use: number operator number");
+                continue;
+            }
+            double a = getDoubleFromText(parts[0]);
+            char operator = parts[1].charAt(0);
+            double b = getDoubleFromText(parts[2]);
+
+            if (Double.isNaN(a) || Double.isNaN(b) || parts[1].length() != 1) {
+                System.out.println("Wrong expression. Use: number operator number");
+                continue;
+            }
 
             result = performCalculation(a, operator, b);
             if (!Double.isNaN(result)) {
                 System.out.println("The result of your operation: " + result);
                 System.out.println("Do you want to perform next calculation?");
-                calculate = scanner.next().charAt(0) == 't';
+                calculate = scanner.nextLine().charAt(0) == 't';
             }
         }
         System.out.println(result % 2 == 0 ? "Last result is even" : "Last result is odd");
     }
 
-    private static double getDoubleFromUser(String prompt, Scanner scanner) {
-        System.out.println(prompt);
-        while (!scanner.hasNextDouble()) {
-            System.out.println("Given input is not double, enter new one");
-            scanner.next();
+    private static double getDoubleFromText(String text) {
+        Scanner scanner = new Scanner(text);
+
+        if (scanner.hasNextDouble()) {
+            return scanner.nextDouble();
         }
-        return scanner.nextDouble();
+
+        return Double.NaN;
     }
 
     private static double performCalculation(double num1, char operator, double num2) {
