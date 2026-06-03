@@ -4,23 +4,43 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        rectangle();
+        pyramid();
     }
 
     public static void rectangle() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input rectangle height");
-        double h = scanner.nextDouble();
+        double h = scanner.nextInt();
 
         System.out.println("Input rectangle width");
-        double w = scanner.nextDouble();
+        double w = scanner.nextInt();
 
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                if (i == 0 || i == h - 1 || j == 0 || j == w-1)
+                if (i == 0 || i == h - 1 || j == 0 || j == w-1) {
                     System.out.print('*');
-                else
+                }
+                else {
                     System.out.print(' ');
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public static void pyramid() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input pyramid height:");
+        double h = scanner.nextInt();
+
+        for (int i = 0; i < h; i++) {
+            // Drawing spaces for row
+            for (int j = 0; j < h - i; j++) {
+                System.out.print(' ');
+            }
+            // Drawing stars for row
+            for (int j = 0; j < 2 * i + 1; j++) {
+                System.out.print('*');
             }
             System.out.println();
         }
