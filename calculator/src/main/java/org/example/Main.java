@@ -26,7 +26,6 @@ public class Main {
                 System.out.println("Wrong expression. Use: number operator number");
                 continue;
             }
-
             result = performCalculation(a, operator, b);
             if (!Double.isNaN(result)) {
                 System.out.println("The result of your operation: " + result);
