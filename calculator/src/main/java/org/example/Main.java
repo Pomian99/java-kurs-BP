@@ -6,24 +6,22 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
         boolean calculate = true;
-        Scanner scan = new Scanner(System.in);
+        Scanner scannner = new Scanner(System.in);
         double result = 0.0;
 
         while (calculate) {
-            double a = getDoubleFromUser("Enter first number:", scan);
+            double a = getDoubleFromUser("Enter first number:", scannner);
 
             System.out.println("Enter operator:");
-            char oper = scan.next().charAt(0);
+            char operator = scannner.next().charAt(0);
 
-            double b = getDoubleFromUser("Enter second number:", scan);
+            double b = getDoubleFromUser("Enter second number:", scannner);
 
-            result = performCalculation(a, oper, b);
-            if (Double.isNaN(result)) {
-                System.out.println("Error during calculation");
-            } else {
+            result = performCalculation(a, operator, b);
+            if (!Double.isNaN(result)) {
                 System.out.println("The result of your operation: " + result);
                 System.out.println("Do you want to perform next calculation?");
-                calculate = scan.next().charAt(0) == 't';
+                calculate = scannner.next().charAt(0) == 't';
             }
         }
         System.out.println(result % 2 == 0 ? "Last result is even" : "Last result is odd");
