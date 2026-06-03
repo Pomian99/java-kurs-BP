@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        pyramid();
+        matrix();
     }
 
     public static void rectangle() {
@@ -17,10 +17,9 @@ public class Main {
 
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                if (i == 0 || i == h - 1 || j == 0 || j == w-1) {
+                if (i == 0 || i == h - 1 || j == 0 || j == w - 1) {
                     System.out.print('*');
-                }
-                else {
+                } else {
                     System.out.print(' ');
                 }
             }
@@ -41,6 +40,24 @@ public class Main {
             // Drawing stars for row
             for (int j = 0; j < 2 * i + 1; j++) {
                 System.out.print('*');
+            }
+            System.out.println();
+        }
+    }
+
+    public static void matrix() {
+        int[][] table = new int[3][3];
+        int value = 1;
+        
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table[i].length; j++) {
+                table[i][j] = value++;
+            }
+        }
+
+        for (int[] row : table) {
+            for (int number : row) {
+                System.out.print(number + " ");
             }
             System.out.println();
         }
