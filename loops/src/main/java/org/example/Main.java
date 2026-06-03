@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        rectangle();
+        pyramid();
         matrix();
+        password();
     }
 
     public static void rectangle() {
@@ -48,7 +51,7 @@ public class Main {
     public static void matrix() {
         int[][] table = new int[3][3];
         int value = 1;
-        
+
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
                 table[i][j] = value++;
@@ -61,5 +64,22 @@ public class Main {
             }
             System.out.println();
         }
+    }
+
+    public static void password() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input password:");
+        String password = scanner.nextLine();
+
+        for (int i = 0; i < password.length(); i++) {
+            char checked = password.charAt(i);
+            for (int j = i + 1; j < password.length(); j++) {
+                if (checked == password.charAt(j)) {
+                    System.out.println("Password doesn't contain unique characters.");
+                    return;
+                }
+            }
+        }
+        System.out.println("Password contain only unique characters.");
     }
 }
