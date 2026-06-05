@@ -21,9 +21,33 @@ public class CustomStack {
             System.err.println("Trying to pop element from empty stack");
             return null;
         }
-        int returnValue = head.value();
-        head = head.previous();
+        int returnValue = head.getValue();
+        head = head.getNext();
         size--;
         return returnValue;
+    }
+
+    public void remove(int value) {
+        if (head == null) {
+            System.err.println("Tried to remove element from empty stack");
+            return;
+        }
+        if (head.getValue() == value) {
+            head = head.getNext();
+            size--;
+            return;
+        }
+        StackNode current = head.getNext();
+        StackNode previous = head;
+        while (current != null) {
+            if (current.getValue() == value) {
+                head = current.getNext();
+                size--;
+                return;
+            }
+            previous = current;
+            current = current.getNext();
+        }
+        System.err.println("Tried to remove element not in stack");
     }
 }
