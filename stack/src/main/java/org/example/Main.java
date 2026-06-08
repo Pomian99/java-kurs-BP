@@ -2,20 +2,18 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        CustomStack stack = new CustomStack();
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        System.out.printf("value popped: %d, stack size %d%n", stack.pop(), stack.getSize());
-        stack.push(4);
-//        System.out.println(stack);
-        stack.remove(1);
-//        System.out.println(stack);
-        System.out.printf("value popped: %d, stack size %d%n", stack.pop(), stack.getSize());
-        System.out.printf("value popped: %d, stack size %d%n", stack.pop(), stack.getSize());
-        System.out.printf("value popped: %d, stack size %d%n", stack.pop(), stack.getSize());
-        stack.push(5);
-        System.out.printf("value popped: %d, stack size %d%n", stack.pop(), stack.getSize());
-        System.out.printf("value popped: %d, stack size %d%n", stack.pop(), stack.getSize());
+        CustomStack<Integer> integerStack = new CustomStack<>();
+        integerStack.push(1);
+        integerStack.push(2);
+        System.out.println(integerStack.pop());
+        integerStack.push(3);
+        System.out.println(integerStack.pop());
+        System.out.println(integerStack.pop());
+
+        CustomStack<Pair> pairStack = new CustomStack<>();
+        pairStack.push(new Pair(1, 1));
+        pairStack.push(new Pair(4, 5));
+        pairStack.remove(new Pair(4, 5));
+        System.out.println(pairStack.pop());
     }
 }
