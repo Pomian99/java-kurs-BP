@@ -37,15 +37,13 @@ public class CustomStack {
             size--;
             return;
         }
-        StackNode current = head.getNext();
-        StackNode previous = head;
-        while (current != null) {
-            if (current.getValue() == value) {
-                head = current.getNext();
+        StackNode current = head;
+        while (current.getNext() != null) {
+            if (current.getNext().getValue() == value) {
+                current.setNext(current.getNext().getNext());
                 size--;
                 return;
             }
-            previous = current;
             current = current.getNext();
         }
         System.err.println("Tried to remove element not in stack");
