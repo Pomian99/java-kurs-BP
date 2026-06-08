@@ -4,9 +4,6 @@ public class CustomStack {
     private StackNode head = null;
     private int size = 0;
 
-    CustomStack() {
-    }
-
     public int getSize() {
         return size;
     }
