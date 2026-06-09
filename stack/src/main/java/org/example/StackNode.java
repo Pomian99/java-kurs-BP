@@ -1,23 +1,23 @@
 package org.example;
 
-public class StackNode {
-    private final int value;
-    private StackNode next;
+public class StackNode<T> {
+    private final T value;
+    private StackNode<T> next;
 
-    public StackNode(int value, StackNode previous) {
+    public StackNode(T value, StackNode<T> previous) {
         this.value = value;
         this.next = previous;
     }
 
-    public int getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setNext(StackNode next) {
+    public void setNext(StackNode<T> next) {
         this.next = next;
     }
 
-    public StackNode getNext() {
+    public StackNode<T> getNext() {
         return next;
     }
 }
