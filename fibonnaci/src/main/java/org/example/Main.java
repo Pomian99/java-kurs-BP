@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println(fibonacci(14));
-        System.out.println(fibonacci(20));
+        System.out.println(fibonacci(25));
     }
 
     private static long fibonacci(int n) {
