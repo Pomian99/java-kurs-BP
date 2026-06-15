@@ -18,8 +18,8 @@ public abstract class Vehicle implements Drivable {
     }
 
     public void displayInfo() {
-        System.out.printf("%s %s year %d, fuel type %s\n", this.brand, this.model, this.year, this.fuelType.getName());
-        System.out.printf("%.2f/%.2f fuel remaining\n", this.currentFuelAmount, this.maxFuel);
+        System.out.printf("%s %s year %d, fuel type %s\n%.2f/%.2f fuel remaining\n",
+                this.brand, this.model, this.year, this.fuelType.getName(), this.currentFuelAmount, this.maxFuel);
     }
 
     public void refuel(double amount) {
