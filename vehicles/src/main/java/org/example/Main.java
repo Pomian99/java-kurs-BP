@@ -9,18 +9,18 @@ public class Main {
 
         for (Vehicle vehicle : vehicles) {
             vehicle.displayInfo();
-            vehicle.drive();
+            vehicle.drive(300);
             vehicle.displayInfo();
         }
 
         for (int i = 0; i < 10; i++) {
             for (Vehicle vehicle : vehicles) {
-                vehicle.drive();
+                vehicle.drive(300);
             }
         }
 
         for (Vehicle vehicle : vehicles) {
-            vehicle.refuel(60);
+            vehicle.refuel(50);
         }
     }
 }

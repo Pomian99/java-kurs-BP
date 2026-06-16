@@ -1,23 +1,29 @@
 package org.example;
 
+import java.math.BigDecimal;
+
 public enum FuelType {
-    DIESEL("diesel", 10.0),
-    PETROL("petrol", 8.0),
-    ELECTRIC("electric", 20.0);
+    DIESEL("diesel", "3.8"),
+    PETROL("petrol", "8.0"),
+    ELECTRIC("electric", "2.0");
 
     private final String name;
-    private final double fuelUsage;
+    private final BigDecimal fuelPrice;
 
-    FuelType(String name, double fuelUsage) {
+    FuelType(String name, String fuelPrice) {
         this.name = name;
-        this.fuelUsage = fuelUsage;
+        this.fuelPrice = new BigDecimal(fuelPrice);
     }
 
-    String getName() {
-        return this.name;
+    public String getName() {
+        return name;
     }
 
-    double getFuelUsage() {
-        return fuelUsage;
+    public BigDecimal getFuelPrice() {
+        return fuelPrice;
+    }
+
+    public BigDecimal calculatePrice(double amount) {
+        return fuelPrice.multiply(BigDecimal.valueOf(amount));
     }
 }
