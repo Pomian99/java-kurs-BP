@@ -1,12 +1,11 @@
 package org.example;
 
 public abstract class LibraryItem {
-    protected final String title;
-    protected boolean isBorrowed = false;
+    private final String title;
+    private boolean borrowed;
 
     public LibraryItem(String title) {
         this.title = title;
-        this.isBorrowed = false;
     }
 
     public String getTitle() {
@@ -14,20 +13,20 @@ public abstract class LibraryItem {
     }
 
     public boolean isBorrowed() {
-        return isBorrowed;
+        return borrowed;
     }
 
     public void borrow() throws ItemIsBorrowedException {
-        if (isBorrowed) {
+        if (borrowed) {
             throw new ItemIsBorrowedException(String.format("Item %s is already borrowed", title));
         }
-        isBorrowed = true;
+        borrowed = true;
     }
 
     public void returnItem() throws ItemNotBorrowedException {
-        if (!isBorrowed) {
+        if (!borrowed) {
             throw new ItemNotBorrowedException(String.format("Item %s is not borrowed", title));
         }
-        isBorrowed = false;
+        borrowed = false;
     }
 }

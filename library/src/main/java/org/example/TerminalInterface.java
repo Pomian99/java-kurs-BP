@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TerminalInterface {
@@ -45,7 +46,7 @@ public class TerminalInterface {
                 4 - Return item by title.
                 5 - Display number of books.
                 6 - Display number of movies.
-                7 - Exit programme.""");
+                7 - Exit program.""");
     }
 
     private int parseIntegerInput() {
@@ -62,14 +63,16 @@ public class TerminalInterface {
 
     private void displayAvailable() {
         System.out.println("Available items:");
-        for (LibraryItem item : library.getAvailable()) {
-            System.out.println(item);
-        }
+        printItemList(library.getAvailable());
     }
 
     private void displayBorrowed() {
         System.out.println("Borrowed items:");
-        for (LibraryItem item : library.getBorrowed()) {
+        printItemList(library.getBorrowed());
+    }
+
+    private void printItemList(List<LibraryItem> itemList) {
+        for (LibraryItem item : itemList) {
             System.out.println(item);
         }
     }
@@ -95,10 +98,10 @@ public class TerminalInterface {
     }
 
     private void displayBooksNumber() {
-        System.out.printf("Number of books in library: %d\n", library.getBookNumber());
+        System.out.printf("Number of books in library: %d%n", library.getBookNumber());
     }
 
     private void displayMoviesNumber() {
-        System.out.printf("Number of movies in library: %d\n", library.getMovieNumber());
+        System.out.printf("Number of movies in library: %d%n", library.getMovieNumber());
     }
 }

@@ -1,6 +1,6 @@
 package org.example;
 
-public class Movie extends LibraryItem{
+public class Movie extends LibraryItem {
     private final String director;
     private final int duration;
     private static int count;
@@ -26,6 +26,6 @@ public class Movie extends LibraryItem{
 
     @Override
     public String toString() {
-        return String.format("Movie: %s directed by %s. duration: %d", title, director, duration);
+        return String.format("Movie: %s directed by %s. Duration: %d minutes", getTitle(), director, duration);
     }
 }

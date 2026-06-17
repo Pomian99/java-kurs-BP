@@ -1,6 +1,6 @@
 package org.example;
 
-public class Book extends LibraryItem{
+public class Book extends LibraryItem {
     private final String author;
     private final int pages;
     private static int count;
@@ -26,6 +26,6 @@ public class Book extends LibraryItem{
 
     @Override
     public String toString() {
-        return String.format("Book: %s by %s. Pages: %d", title, author, pages);
+        return String.format("Book: %s by %s. Pages: %d", getTitle(), author, pages);
     }
 }

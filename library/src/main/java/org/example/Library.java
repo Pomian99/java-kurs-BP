@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    List<LibraryItem> items;
+    private final List<LibraryItem> items;
 
     public Library() {
         items = new ArrayList<>();
@@ -15,43 +15,19 @@ public class Library {
     }
 
     public List<LibraryItem> getAvailable() {
-        List<LibraryItem> availableItems = new ArrayList<>();
-        for (LibraryItem item : items) {
-            if (!item.isBorrowed()) {
-                availableItems.add(item);
-            }
-        }
-        return availableItems;
+        return getItemsByBorrowedStatus(false);
     }
 
     public List<LibraryItem> getBorrowed() {
-        List<LibraryItem> borrowedItems = new ArrayList<>();
-        for (LibraryItem item : items) {
-            if (item.isBorrowed()) {
-                borrowedItems.add(item);
-            }
-        }
-        return borrowedItems;
+        return getItemsByBorrowedStatus(true);
     }
 
     public void borrow(String title) throws ItemNotFoundException {
-        for (LibraryItem item : items) {
-            if (item.getTitle().equals(title)) {
-                item.borrow();
-                return;
-            }
-        }
-        throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
+        findByTitle(title).borrow();
     }
 
     public void returnItem(String title) throws ItemNotFoundException {
-        for (LibraryItem item : items) {
-            if (item.getTitle().equals(title)) {
-                item.returnItem();
-                return;
-            }
-        }
-        throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
+        findByTitle(title).returnItem();
     }
 
     public int getBookNumber() {
@@ -61,4 +37,24 @@ public class Library {
     public int getMovieNumber() {
         return Movie.getCount();
     }
+
+    private List<LibraryItem> getItemsByBorrowedStatus(boolean borrowed) {
+        List<LibraryItem> matchingItems = new ArrayList<>();
+        for (LibraryItem item : items) {
+            if (item.isBorrowed() == borrowed) {
+                matchingItems.add(item);
+            }
+        }
+        return matchingItems;
+    }
+
+    private LibraryItem findByTitle(String title) throws ItemNotFoundException {
+        for (LibraryItem item : items) {
+            if (item.getTitle().equals(title)) {
+                return item;
+            }
+        }
+        throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
+    }
+
 }
