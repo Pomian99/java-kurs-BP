@@ -23,11 +23,19 @@ public class Library {
     }
 
     public void borrow(String title) throws ItemNotFoundException {
-        findByTitle(title).borrow();
+        LibraryItem item = findByTitle(title);
+        if (item == null) {
+            throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
+        }
+        item.borrow();
     }
 
     public void returnItem(String title) throws ItemNotFoundException {
-        findByTitle(title).returnItem();
+        LibraryItem item = findByTitle(title);
+        if (item == null) {
+            throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
+        }
+        item.returnItem();
     }
 
     public int getBookNumber() {
@@ -48,13 +56,12 @@ public class Library {
         return matchingItems;
     }
 
-    private LibraryItem findByTitle(String title) throws ItemNotFoundException {
+    private LibraryItem findByTitle(String title) {
         for (LibraryItem item : items) {
             if (item.getTitle().equals(title)) {
                 return item;
             }
         }
-        throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
+        return null;
     }
-
 }

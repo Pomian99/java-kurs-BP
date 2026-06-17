@@ -50,15 +50,14 @@ public class TerminalInterface {
     }
 
     private int parseIntegerInput() {
-        Integer input = null;
-        while (input == null) {
-            try {
-                input = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Integer value expected. Try again.");
-            }
+        String input = scanner.nextLine().strip();
+
+        while (!input.matches("\\d+")) {
+            System.out.println("Integer value expected. Try again.");
+            input = scanner.nextLine().strip();
         }
-        return input;
+
+        return Integer.parseInt(input);
     }
 
     private void displayAvailable() {
