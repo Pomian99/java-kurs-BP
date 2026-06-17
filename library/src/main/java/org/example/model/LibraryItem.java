@@ -1,4 +1,7 @@
-package org.example;
+package org.example.model;
+
+import org.example.exception.ItemIsBorrowedException;
+import org.example.exception.ItemNotBorrowedException;
 
 public abstract class LibraryItem {
     private final String title;

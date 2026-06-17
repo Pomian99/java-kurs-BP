@@ -1,4 +1,9 @@
-package org.example;
+package org.example.service;
+
+import org.example.model.Book;
+import org.example.model.LibraryItem;
+import org.example.model.Movie;
+import org.example.exception.ItemNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,12 @@
-package org.example;
+package org.example.ui;
+
+import org.example.model.Book;
+import org.example.model.LibraryItem;
+import org.example.model.Movie;
+import org.example.exception.ItemIsBorrowedException;
+import org.example.exception.ItemNotBorrowedException;
+import org.example.exception.ItemNotFoundException;
+import org.example.service.Library;
 
 import java.util.List;
 import java.util.Scanner;
