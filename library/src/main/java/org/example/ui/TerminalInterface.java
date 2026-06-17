@@ -31,15 +31,19 @@ public class TerminalInterface {
         boolean exit = false;
         while (!exit) {
             printMenu();
-            switch (parseIntegerInput()) {
-                case 1 -> displayAvailable();
-                case 2 -> displayBorrowed();
-                case 3 -> borrowByTitle();
-                case 4 -> returnByTitle();
-                case 5 -> displayBooksNumber();
-                case 6 -> displayMoviesNumber();
-                case 7 -> exit = true;
-                default -> System.out.println("Unknown option.");
+            MenuOption option =MenuOption.fromNumber(parseIntegerInput());
+            if (option == null) {
+                System.out.println("Unknown Option.");
+                continue;
+            }
+            switch (option) {
+                case DISPLAY_AVAILABLE -> displayAvailable();
+                case DISPLAY_BORROWED -> displayBorrowed();
+                case BORROW_ITEM -> borrowByTitle();
+                case RETURN_ITEM -> returnByTitle();
+                case DISPLAY_BOOKS_NUMBER -> displayBooksNumber();
+                case DISPLAY_MOVIES_NUMBER -> displayMoviesNumber();
+                case EXIT -> exit = true;
             }
         }
     }
@@ -47,14 +51,10 @@ public class TerminalInterface {
     private void printMenu() {
         System.out.println("""
                 ============================
-                Choose action:
-                1 - Display available items.
-                2 - Display borrowed items.
-                3 - Borrow item by title.
-                4 - Return item by title.
-                5 - Display number of books.
-                6 - Display number of movies.
-                7 - Exit program.""");
+                Choose action:""");
+        for (MenuOption option : MenuOption.values()) {
+            System.out.printf("%d - %s%n", option.getNumber(), option.getDescription());
+        }
     }
 
     private int parseIntegerInput() {

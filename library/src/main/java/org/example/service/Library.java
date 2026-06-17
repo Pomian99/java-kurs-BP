@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.model.Book;
+import org.example.model.ItemState;
 import org.example.model.LibraryItem;
 import org.example.model.Movie;
 import org.example.exception.ItemNotFoundException;
@@ -20,11 +21,11 @@ public class Library {
     }
 
     public List<LibraryItem> getAvailable() {
-        return getItemsByBorrowedStatus(false);
+        return getItemsByState(ItemState.AVAILABLE);
     }
 
     public List<LibraryItem> getBorrowed() {
-        return getItemsByBorrowedStatus(true);
+        return getItemsByState(ItemState.BORROWED);
     }
 
     public void borrow(String title) throws ItemNotFoundException {
@@ -51,10 +52,10 @@ public class Library {
         return Movie.getCount();
     }
 
-    private List<LibraryItem> getItemsByBorrowedStatus(boolean borrowed) {
+    private List<LibraryItem> getItemsByState(ItemState state) {
         List<LibraryItem> matchingItems = new ArrayList<>();
         for (LibraryItem item : items) {
-            if (item.isBorrowed() == borrowed) {
+            if (item.getState() == state) {
                 matchingItems.add(item);
             }
         }

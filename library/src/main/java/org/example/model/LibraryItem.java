@@ -5,31 +5,32 @@ import org.example.exception.ItemNotBorrowedException;
 
 public abstract class LibraryItem {
     private final String title;
-    private boolean borrowed;
+    private ItemState state;
 
     public LibraryItem(String title) {
         this.title = title;
+        state = ItemState.AVAILABLE;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public boolean isBorrowed() {
-        return borrowed;
+    public ItemState getState() {
+        return state;
     }
 
     public void borrow() throws ItemIsBorrowedException {
-        if (borrowed) {
+        if (state == ItemState.BORROWED) {
             throw new ItemIsBorrowedException(String.format("Item %s is already borrowed", title));
         }
-        borrowed = true;
+        state = ItemState.BORROWED;
     }
 
     public void returnItem() throws ItemNotBorrowedException {
-        if (!borrowed) {
+        if (state == ItemState.AVAILABLE) {
             throw new ItemNotBorrowedException(String.format("Item %s is not borrowed", title));
         }
-        borrowed = false;
+        state = ItemState.AVAILABLE;
     }
 }
