@@ -1,9 +1,9 @@
 package org.example;
 
-public enum Operation implements MathOperation{
-    ADD('+', (a, b) -> a+b),
-    SUBTRACT('-', (a, b) -> a-b),
-    MULTIPLY('*', (a, b) -> a*b),
+public enum Operation implements MathOperation {
+    ADD('+', (a, b) -> a + b),
+    SUBTRACT('-', (a, b) -> a - b),
+    MULTIPLY('*', (a, b) -> a * b),
     DIVIDE('/', Operation::division);
 
     private final char operator;
@@ -42,7 +42,7 @@ public enum Operation implements MathOperation{
     }
 
     private static Integer division(Integer a, Integer b) {
-        if (b.equals(0)){
+        if (b.equals(0)) {
             throw new ArithmeticException("Can't divide by 0");
         }
         return Integer.divideUnsigned(a, b);
