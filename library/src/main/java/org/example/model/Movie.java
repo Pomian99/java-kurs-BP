@@ -26,6 +26,6 @@ public class Movie extends LibraryItem {
 
     @Override
     public String toString() {
-        return String.format("Movie: %s directed by %s. Duration: %d minutes", getTitle(), director, duration);
+        return String.format("Movie: %s directed by %s. Duration: %d minutes", title, director, duration);
     }
 }

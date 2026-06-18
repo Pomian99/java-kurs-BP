@@ -31,7 +31,7 @@ public class TerminalInterface {
         boolean exit = false;
         while (!exit) {
             printMenu();
-            MenuOption option =MenuOption.fromNumber(parseIntegerInput());
+            MenuOption option = MenuOption.fromNumber(parseIntegerInput());
             if (option == null) {
                 System.out.println("Unknown Option.");
                 continue;

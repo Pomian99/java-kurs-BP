@@ -4,7 +4,7 @@ import org.example.exception.ItemIsBorrowedException;
 import org.example.exception.ItemNotBorrowedException;
 
 public abstract class LibraryItem {
-    private final String title;
+    protected final String title;
     private ItemState state;
 
     public LibraryItem(String title) {
