@@ -8,6 +8,7 @@ import org.example.exception.ItemNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Library {
     private final List<LibraryItem> items;
@@ -29,19 +30,15 @@ public class Library {
     }
 
     public void borrow(String title) throws ItemNotFoundException {
-        LibraryItem item = findByTitle(title);
-        if (item == null) {
-            throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
-        }
-        item.borrow();
+        findByTitle(title).orElseThrow(
+                () -> new ItemNotFoundException(String.format("Item %s does not exist in library", title))
+        ).borrow();
     }
 
     public void returnItem(String title) throws ItemNotFoundException {
-        LibraryItem item = findByTitle(title);
-        if (item == null) {
-            throw new ItemNotFoundException(String.format("Item %s does not exist in library", title));
-        }
-        item.returnItem();
+        findByTitle(title).orElseThrow(
+                () -> new ItemNotFoundException(String.format("Item %s does not exist in library", title))
+        ).returnItem();
     }
 
     public int getBookNumber() {
@@ -62,12 +59,12 @@ public class Library {
         return matchingItems;
     }
 
-    private LibraryItem findByTitle(String title) {
+    private Optional<LibraryItem> findByTitle(String title) {
         for (LibraryItem item : items) {
             if (item.getTitle().equals(title)) {
-                return item;
+                return Optional.of(item);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }
