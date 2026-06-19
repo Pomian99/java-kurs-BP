@@ -9,6 +9,7 @@ import org.example.exception.ItemNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Library {
     private final List<LibraryItem> items;
@@ -50,21 +51,14 @@ public class Library {
     }
 
     private List<LibraryItem> getItemsByState(ItemState state) {
-        List<LibraryItem> matchingItems = new ArrayList<>();
-        for (LibraryItem item : items) {
-            if (item.getState() == state) {
-                matchingItems.add(item);
-            }
-        }
-        return matchingItems;
+        return items.stream()
+                .filter(item -> item.getState() == state)
+                .collect(Collectors.toList());
     }
 
     private Optional<LibraryItem> findByTitle(String title) {
-        for (LibraryItem item : items) {
-            if (item.getTitle().equals(title)) {
-                return Optional.of(item);
-            }
-        }
-        return Optional.empty();
+        return items.stream()
+                .filter(item -> item.getTitle().equals(title))
+                .findAny();
     }
 }
