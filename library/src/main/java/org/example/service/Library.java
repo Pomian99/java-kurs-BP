@@ -30,15 +30,15 @@ public class Library {
     }
 
     public void borrow(String title) throws ItemNotFoundException {
-        findByTitle(title).orElseThrow(
-                () -> new ItemNotFoundException(String.format("Item %s does not exist in library", title))
-        ).borrow();
+        findByTitle(title)
+                .orElseThrow(() -> new ItemNotFoundException(String.format("Item %s does not exist in library", title)))
+                .borrow();
     }
 
     public void returnItem(String title) throws ItemNotFoundException {
-        findByTitle(title).orElseThrow(
-                () -> new ItemNotFoundException(String.format("Item %s does not exist in library", title))
-        ).returnItem();
+        findByTitle(title)
+                .orElseThrow(() -> new ItemNotFoundException(String.format("Item %s does not exist in library", title)))
+                .returnItem();
     }
 
     public int getBookNumber() {

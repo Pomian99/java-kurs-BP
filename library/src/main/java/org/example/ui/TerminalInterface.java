@@ -31,7 +31,8 @@ public class TerminalInterface {
     public void run() {
         while (!exitLoop) {
             printMenu();
-            MenuOption.fromNumber(parseIntegerInput()).ifPresentOrElse(
+            MenuOption.fromNumber(parseIntegerInput())
+                    .ifPresentOrElse(
                     option -> {
                         switch (option) {
                             case DISPLAY_AVAILABLE -> displayAvailable();
