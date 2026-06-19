@@ -1,5 +1,7 @@
 package org.example.ui;
 
+import java.util.Optional;
+
 public enum MenuOption {
     DISPLAY_AVAILABLE(1, "Display available items."),
     DISPLAY_BORROWED(2, "Display borrowed items."),
@@ -25,12 +27,12 @@ public enum MenuOption {
         return description;
     }
 
-    public static MenuOption fromNumber(int number) {
+    public static Optional<MenuOption> fromNumber(int number) {
         for (MenuOption option : MenuOption.values()) {
             if (option.number == number) {
-                return option;
+                return Optional.of(option);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }

@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class TerminalInterface {
     private final Scanner scanner;
     private final Library library;
+    private boolean exitLoop = false;
 
     public TerminalInterface() {
         scanner = new Scanner(System.in);
@@ -28,24 +29,23 @@ public class TerminalInterface {
     }
 
     public void run() {
-        boolean exit = false;
-        while (!exit) {
+        while (!exitLoop) {
             printMenu();
-            MenuOption option = MenuOption.fromNumber(parseIntegerInput());
-            if (option == null) {
-                System.out.println("Unknown Option.");
-                continue;
-            }
-            switch (option) {
-                case DISPLAY_AVAILABLE -> displayAvailable();
-                case DISPLAY_BORROWED -> displayBorrowed();
-                case BORROW_ITEM -> borrowByTitle();
-                case RETURN_ITEM -> returnByTitle();
-                case DISPLAY_BOOKS_NUMBER -> displayBooksNumber();
-                case DISPLAY_MOVIES_NUMBER -> displayMoviesNumber();
-                case EXIT -> exit = true;
-            }
+            MenuOption.fromNumber(parseIntegerInput()).ifPresentOrElse(
+                    option -> {
+                        switch (option) {
+                            case DISPLAY_AVAILABLE -> displayAvailable();
+                            case DISPLAY_BORROWED -> displayBorrowed();
+                            case BORROW_ITEM -> borrowByTitle();
+                            case RETURN_ITEM -> returnByTitle();
+                            case DISPLAY_BOOKS_NUMBER -> displayBooksNumber();
+                            case DISPLAY_MOVIES_NUMBER -> displayMoviesNumber();
+                            case EXIT -> exitLoop = true;
+                        }
+                    },
+                    () -> System.out.println("Unknown Option."));
         }
+        scanner.close();
     }
 
     private void printMenu() {
