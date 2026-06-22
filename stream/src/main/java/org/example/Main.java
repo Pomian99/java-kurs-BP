@@ -74,6 +74,34 @@ public class Main {
                         .sorted()
                         .collect(Collectors.joining(","))
         );
+
+        /*
+        Pogrupuj produkty na dwie kategorie: "Tanie" (cena < 50) i "Drogie" (cena ≥ 50).
+        Dla każdej grupy zbuduj jeden napis: nazwy produktów wielkimi literami, połączone " | ", całość objęta nawiasami kwadratowymi.
+        Oczekiwany wynik:
+        Tanie  -> [MLEKO | CHLEB | DLUGOPIS]
+        Drogie -> [TELEWIZOR | SLUCHAWKI | BIURKO]
+         */
+        record Product(String name, String category, double price) {
+        }
+
+        List<Product> products = List.of(
+                new Product("Mleko", "Spozywcze", 4.50),
+                new Product("Telewizor", "Elektronika", 2300),
+                new Product("Chleb", "Spozywcze", 6.00),
+                new Product("Sluchawki", "Elektronika", 199),
+                new Product("Dlugopis", "Biuro", 3.20),
+                new Product("Biurko", "Biuro", 650)
+        );
+        products.stream()
+                .collect(Collectors.groupingBy(
+                        product -> product.price() < 50 ? "Tanie" : "Drogie",
+                        Collectors.mapping(
+                                product -> product.name.toUpperCase(),
+                                Collectors.joining(" | ", "[", "]")
+                        )
+                ))
+                .forEach((key, value) -> System.out.printf("%s -> %s%n", key, value));
     }
 
     public static List<Integer> filterNumbers(List<Integer> list, Predicate<Integer> predicate) {
