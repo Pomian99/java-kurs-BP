@@ -3,13 +3,13 @@ package homework;
 import homework.generator.HoldingGenerator;
 import homework.model.*;
 import homework.model.Currency;
-import org.w3c.dom.ls.LSOutput;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,6 +20,17 @@ public class Exercises {
     private static final List<Holding> holdings = new HoldingGenerator().generate();
 
     public static void main(String[] args) {
+        System.out.println(getHoldingsWhereAreCompanies());
+        System.out.println(getHoldingNames());
+        System.out.println(getHoldingNamesAsString());
+        System.out.println(getCompaniesAmount());
+        System.out.println(getAllUserAmount());
+        System.out.println(getAllCompaniesNamesAsLinkedList());
+        System.out.println(getUsersForPredicate(user -> user.getAge() > 30));
+        executeForEachCompany(company -> System.out.println(company.getName()));
+        getRichestWoman().ifPresentOrElse(System.out::println, () -> System.out.println("Nie znaleziono"));
+        System.out.println(getFirstNCompany(4));
+        System.out.println(getUserPerCompany());
     }
 
     /**
@@ -36,10 +47,12 @@ public class Exercises {
      */
     public static List<String> getHoldingNames() {
         return holdings.stream()
-                .map(Holding::getName)
-                .map(s -> s.isEmpty()
-                        ? s
-                        : Character.toUpperCase(s.charAt(0)) + s.substring(1))
+                .map(holding -> {
+                    String name = holding.getName();
+                    return name.isEmpty()
+                        ? name
+                        : Character.toUpperCase(name.charAt(0)) + name.substring(1);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +64,7 @@ public class Exercises {
         return holdings.stream()
                 .map(Holding::getName)
                 .sorted()
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(", ", "(", ")"));
     }
 
     /**
@@ -160,7 +173,7 @@ public class Exercises {
      */
     public static Map<String, Account> createAccountsMap() {
         return getAccoutStream()
-                .collect(Collectors.toMap(Account::getNumber, account -> account));
+                .collect(Collectors.toMap(Account::getNumber, Function.identity()));
     }
 
     /**
@@ -180,8 +193,12 @@ public class Exercises {
     public static void showAllUser() {
         System.out.println(getUserStream()
                 .sorted(Comparator.comparing(User::getFirstName, Comparator.reverseOrder()))
-                .map(user -> user.getFirstName().concat(" ").concat(user.getLastName()))
+                .map(Exercises::getUserFullName)
                 .collect(Collectors.joining(", ")));
+    }
+
+    private static String getUserFullName(User user) {
+        return String.format("%s %s", user.getFirstName(), user.getLastName());
     }
 
     /**
