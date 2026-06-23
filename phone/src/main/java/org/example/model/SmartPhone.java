@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.exceptions.FriendListFullException;
+import org.example.exceptions.NumberExistEsception;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -19,22 +20,26 @@ public class SmartPhone extends CellPhone {
         if (friendCounter >= friends.length) {
             throw new FriendListFullException("Friend list is full. Can't add more friends.");
         }
+        if (Arrays.stream(friends)
+                .filter(Objects::nonNull)
+                .anyMatch(friend -> friend.phoneNumber().equals(phoneNumber))) {
+            throw new NumberExistEsception("Friend with given number already exist.");
+        }
         friends[friendCounter++] = new Person(name, surname, phoneNumber);
     }
 
     @Override
     public void showCallHistory() {
         System.out.println(historyCounter == HISTORY_SIZE-1 ? "No calls in history" : "Last calls:");
-        Map<String, String> friendsMap = Arrays.stream(friends)
+        Map<String, String> friendsByNumber = Arrays.stream(friends)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(
                         Person::phoneNumber,
-                        Person::toString,
-                        (a, b) -> a
+                        Person::toString
                 ));
         Arrays.stream(history)
                 .filter(Objects::nonNull)
-                .map(number -> friendsMap.getOrDefault(number, number))
+                .map(number -> friendsByNumber.getOrDefault(number, number))
                 .forEach(System.out::println);
     }
 }

@@ -1,6 +1,8 @@
 package org.example;
 
 import org.example.exceptions.CallHistoryFullException;
+import org.example.exceptions.FriendListFullException;
+import org.example.exceptions.NumberExistEsception;
 import org.example.exceptions.WrongNumberFormatException;
 import org.example.model.CellPhone;
 import org.example.model.Colour;
@@ -30,11 +32,15 @@ public class Main {
         phones[0] = new Phone("GSM", Colour.BLACK);
         phones[1] = new CellPhone("3G/4G", Colour.SILVER);
         SmartPhone smartPhone = new SmartPhone("5G/WiFi", Colour.WHITE);
-        smartPhone.addFriend("Jan", "Kowalski", testPhoneNumbers[0]);
-        smartPhone.addFriend("Maria", "Nowak", testPhoneNumbers[1]);
-        smartPhone.addFriend("Piotr", "Lewandowski", testPhoneNumbers[2]);
-        smartPhone.addFriend("Anna", "Kamińska", testPhoneNumbers[3]);
-        smartPhone.addFriend("Krzysztof", "Wójcik", testPhoneNumbers[4]);
+        try {
+            smartPhone.addFriend("Jan", "Kowalski", testPhoneNumbers[0]);
+            smartPhone.addFriend("Maria", "Nowak", testPhoneNumbers[1]);
+            smartPhone.addFriend("Piotr", "Lewandowski", testPhoneNumbers[2]);
+            smartPhone.addFriend("Anna", "Kamińska", testPhoneNumbers[3]);
+            smartPhone.addFriend("Krzysztof", "Wójcik", testPhoneNumbers[4]);
+        } catch (FriendListFullException | NumberExistEsception e) {
+            System.out.println(e.getMessage());
+        }
         phones[2] = smartPhone;
 
         Arrays.stream(phones)
