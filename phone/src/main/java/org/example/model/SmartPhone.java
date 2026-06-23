@@ -24,6 +24,7 @@ public class SmartPhone extends CellPhone {
 
     @Override
     public void showCallHistory() {
+        System.out.println(historyCounter == HISTORY_SIZE-1 ? "No calls in history" : "Last calls:");
         Map<String, String> friendsMap = Arrays.stream(friends)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(
