@@ -20,11 +20,11 @@ public class SmartPhone extends CellPhone {
         if (friendCounter >= friends.length) {
             throw new FriendListFullException("Friend list is full. Can't add more friends.");
         }
-        if (Arrays.stream(friends)
+        Arrays.stream(friends)
                 .filter(Objects::nonNull)
-                .anyMatch(friend -> friend.phoneNumber().equals(phoneNumber))) {
-            throw new NumberExistEsception("Friend with given number already exist.");
-        }
+                .filter(friend -> !friend.phoneNumber().equals(phoneNumber))
+                .findFirst()
+                .orElseThrow(() -> new NumberExistEsception("Friend with given number already exist."));
         friends[friendCounter++] = new Person(name, surname, phoneNumber);
     }
 
