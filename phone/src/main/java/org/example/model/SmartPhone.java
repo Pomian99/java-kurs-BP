@@ -34,6 +34,7 @@ public class SmartPhone extends CellPhone {
                 ));
         Arrays.stream(history)
                 .filter(Objects::nonNull)
-                .forEach(number -> System.out.println(friendsMap.getOrDefault(number, number)));
+                .map(number -> friendsMap.getOrDefault(number, number))
+                .forEach(System.out::println);
     }
 }
