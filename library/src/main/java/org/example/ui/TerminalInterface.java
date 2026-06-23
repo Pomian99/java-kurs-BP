@@ -8,6 +8,7 @@ import org.example.exception.ItemNotBorrowedException;
 import org.example.exception.ItemNotFoundException;
 import org.example.service.Library;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,29 +34,27 @@ public class TerminalInterface {
             printMenu();
             MenuOption.fromNumber(parseIntegerInput())
                     .ifPresentOrElse(
-                    option -> {
-                        switch (option) {
-                            case DISPLAY_AVAILABLE -> displayAvailable();
-                            case DISPLAY_BORROWED -> displayBorrowed();
-                            case BORROW_ITEM -> borrowByTitle();
-                            case RETURN_ITEM -> returnByTitle();
-                            case DISPLAY_BOOKS_NUMBER -> displayBooksNumber();
-                            case DISPLAY_MOVIES_NUMBER -> displayMoviesNumber();
-                            case EXIT -> exitLoop = true;
-                        }
-                    },
-                    () -> System.out.println("Unknown Option."));
+                            option -> {
+                                switch (option) {
+                                    case DISPLAY_AVAILABLE -> displayAvailable();
+                                    case DISPLAY_BORROWED -> displayBorrowed();
+                                    case BORROW_ITEM -> borrowByTitle();
+                                    case RETURN_ITEM -> returnByTitle();
+                                    case DISPLAY_BOOKS_NUMBER -> displayBooksNumber();
+                                    case DISPLAY_MOVIES_NUMBER -> displayMoviesNumber();
+                                    case EXIT -> exitLoop = true;
+                                }
+                            },
+                            () -> System.out.println("Unknown Option."));
         }
-        scanner.close();
     }
 
     private void printMenu() {
         System.out.println("""
                 ============================
                 Choose action:""");
-        for (MenuOption option : MenuOption.values()) {
-            System.out.printf("%d - %s%n", option.getNumber(), option.getDescription());
-        }
+        Arrays.stream(MenuOption.values())
+                .forEach(option -> System.out.printf("%d - %s%n", option.getNumber(), option.getDescription()));
     }
 
     private int parseIntegerInput() {
@@ -80,9 +79,7 @@ public class TerminalInterface {
     }
 
     private void printItemList(List<LibraryItem> itemList) {
-        for (LibraryItem item : itemList) {
-            System.out.println(item);
-        }
+        itemList.forEach(System.out::println);
     }
 
     private void borrowByTitle() {
