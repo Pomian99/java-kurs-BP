@@ -26,7 +26,7 @@ public class Main {
         accounts.forEach(account -> account.withdraw(BigDecimal.valueOf(15000.0)));
 
         for (int i = 0; i < accounts.size(); i++) {
-            accounts.get(i).transfer(accounts.get((i+1)% accounts.size()), BigDecimal.valueOf(500.0));
+            accounts.get(i).transfer(accounts.get((i + 1) % accounts.size()), BigDecimal.valueOf(500.0));
         }
 
         StandardAccount.setInterestRate(3.0);
@@ -36,6 +36,5 @@ public class Main {
 
         accounts.forEach(Account::update);
         accounts.forEach(System.out::println);
-
     }
 }

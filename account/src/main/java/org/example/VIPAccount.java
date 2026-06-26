@@ -6,8 +6,9 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-@Getter @Setter
-public class VIPAccount extends StandardAccount{
+@Getter
+@Setter
+public class VIPAccount extends StandardAccount {
     private double individualInterestRate;
     private BigDecimal overdraftLimit;
 

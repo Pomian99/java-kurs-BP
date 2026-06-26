@@ -4,7 +4,10 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Getter @Setter @AllArgsConstructor @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class Account {
     protected final Person owner;
     BigDecimal balance;
