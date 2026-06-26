@@ -64,4 +64,8 @@ public class VIPAccount extends StandardAccount{
         balance = balance.add(balance.multiply(BigDecimal.valueOf(individualInterestRate)).divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP));
     }
 
+    @Override
+    public String toString() {
+        return String.format("VIPAccount{owner=%s, balance=%s, interest rate=%.2f, limit=%.2f}", owner, balance, individualInterestRate, overdraftLimit);
+    }
 }
