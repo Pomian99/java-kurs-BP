@@ -36,7 +36,6 @@ public class LockQueue extends Queue {
                 logMessage("Queue empty.");
                 queueEmptyCondition.await();
             }
-
             return queue.removeFirst();
         } finally {
             queueFullCondition.signalAll();
