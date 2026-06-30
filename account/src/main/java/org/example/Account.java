@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @ToString
 public class Account {
     protected final Person owner;
-    BigDecimal balance;
+    protected BigDecimal balance;
 
     public boolean deposit(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
