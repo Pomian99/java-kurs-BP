@@ -1,16 +1,22 @@
 package org.example;
 
+import java.time.LocalTime;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class LockQueue extends Queue {
+public class LockDataBuffer implements DataBuffer {
+    protected final Queue<Integer> queue;
+    protected final int capacity;
 
     private final ReentrantLock lock = new ReentrantLock();
     private final Condition queueEmptyCondition = lock.newCondition();
     private final Condition queueFullCondition = lock.newCondition();
 
-    public LockQueue(int capacity, boolean logInfo) {
-        super(capacity, logInfo);
+    public LockDataBuffer(int capacity) {
+        this.capacity = capacity;
+        queue = new LinkedList<>();
     }
 
     @Override
@@ -18,7 +24,7 @@ public class LockQueue extends Queue {
         try {
             lock.lock();
             while (queue.size() >= capacity) {
-                logMessage("Queue full.");
+                logMessage("LockDataBuffer full.");
                 queueFullCondition.await();
             }
             queue.add(item);
@@ -33,13 +39,20 @@ public class LockQueue extends Queue {
         try {
             lock.lock();
             while (queue.isEmpty()) {
-                logMessage("Queue empty.");
+                logMessage("LockDataBuffer empty.");
                 queueEmptyCondition.await();
             }
-            return queue.removeFirst();
+            return queue.poll();
         } finally {
             queueFullCondition.signalAll();
             lock.unlock();
         }
+    }
+
+    protected void logMessage(String message) {
+        String threadName = Thread.currentThread().getName();
+        String timestamp = LocalTime.now().toString();
+        System.out.printf("[%s] [%s] - %s%n",
+                timestamp, threadName, message);
     }
 }

@@ -1,11 +1,13 @@
 package org.example;
 
-import lombok.*;
-
-@RequiredArgsConstructor
 public class Consumer implements Runnable {
-    private final Queue queue;
+    private final DataBuffer queue;
     private final int itemsToConsume;
+
+    public Consumer(DataBuffer queue, int itemsToConsume) {
+        this.queue = queue;
+        this.itemsToConsume = itemsToConsume;
+    }
 
     public void run() {
         System.out.printf("%s starting.%n", Thread.currentThread().getName());
